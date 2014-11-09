@@ -13,11 +13,11 @@ public class makeMenu : MonoBehaviour {
 			
 			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 			if(GUI.Button(new Rect(20,40,80,20), new GUIContent("New Game", playerIcon))) {
-				Application.LoadLevel("test_scene");
+				Application.LoadLevel("cc");
 			}
 			
 			// Make the second button.
-			if(GUI.Button(new Rect(20,70,80,20),new GUIContent("Options",enemyIcon))) {
+			if(GUI.Button(new Rect(10,70,80,20),new GUIContent("Options",enemyIcon))) {
 				Application.LoadLevel("options");
 			}
 		}

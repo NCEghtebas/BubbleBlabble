@@ -41,7 +41,7 @@ public class EnemyAI : MonoBehaviour
 		ObjectSize enemy_size = gameObject.GetComponent<ObjectSize> ();
 //		angle = Vector3.Angle (prey.transform.position, gameObject.transform.position);
 		
-		if (prey.GetComponent<ObjectSize>().size <= enemy_size.size) {
+		if (prey.GetComponent<ObjectSize>().size < enemy_size.size) {
 			Debug.Log ("Hit");
 			StartCoroutine(eat ());
 

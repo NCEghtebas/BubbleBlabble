@@ -16,7 +16,7 @@ public class absorbController : MonoBehaviour {
 	{
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 		anim.SetBool ("isEating", true);
-		yield return new WaitForSeconds (7f);
+		yield return new WaitForSeconds (3f);
 		anim.SetBool ("isEating", false);
 		Debug.Log ("Finished eating");
 	}
