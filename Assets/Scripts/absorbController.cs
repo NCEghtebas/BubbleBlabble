@@ -27,7 +27,7 @@ public class absorbController : MonoBehaviour {
 		angle = Vector3.Angle (prey.transform.position, gameObject.transform.position);
 
 		if (prey.GetComponent<ObjectSize>().size < player_size.size) {
-			rigidbody.AddTorque(Vector3.up * 10);
+//			rigidbody.AddTorque(Vector3.up * 10);
 			StartCoroutine(eat ());
 						Debug.Log ("Hit");
 						Destroy (prey.m_target);

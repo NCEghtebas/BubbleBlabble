@@ -19,7 +19,7 @@ public class EnemyAI : MonoBehaviour
 	{	
 		anim.SetBool("isPlaying",true);
 		isPlayingSound = true;
-		yield return new WaitForSeconds (5f);
+		yield return new WaitForSeconds (2f);
 		isPlayingSound = false;
 		audio.Play ();
 		//Debug.Log ("Play Sound");
@@ -28,7 +28,7 @@ public class EnemyAI : MonoBehaviour
 
 	IEnumerator eat()
 	{
-		transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+//		transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 		anim.SetBool ("isEating", true);
 		yield return new WaitForSeconds (7f);
 		anim.SetBool ("isEating", false);
@@ -39,7 +39,7 @@ public class EnemyAI : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D hit){
 		EnemyAI prey = hit.gameObject.GetComponent<EnemyAI> ();
 		ObjectSize enemy_size = gameObject.GetComponent<ObjectSize> ();
-		angle = Vector3.Angle (prey.transform.position, gameObject.transform.position);
+//		angle = Vector3.Angle (prey.transform.position, gameObject.transform.position);
 		
 		if (prey.GetComponent<ObjectSize>().size <= enemy_size.size) {
 			Debug.Log ("Hit");

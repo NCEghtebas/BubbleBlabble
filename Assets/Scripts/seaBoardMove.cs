@@ -69,7 +69,7 @@ public class seaBoardMove : MonoBehaviour {
 
 //		string[] combinedNotes= noteName.Split (p);
 //		Debug.Log (notes);
-
+		Debug.Log (midiNum [noteName]);
 		return midiNum[noteName];
 	}
 
@@ -90,6 +90,25 @@ public class seaBoardMove : MonoBehaviour {
 		return notes_pressed;
 	}
 
+	void findNewTarget(){
+		EnemyAI[] enemyList= FindObjectsOfType<EnemyAI> ();
+		float closestDis = Mathf.Infinity;
+		GameObject closest = null;
+		foreach (EnemyAI enemyScript in enemyList) {
+			float disToEnemy = (enemyScript.transform.position - gameObject.transform.position).magnitude;
+			if (disToEnemy < closestDis) {
+				closest = enemyScript.gameObject;
+				closestDis = disToEnemy;
+			}
+		}
+		if (closest == null) {
+			Debug.Log ("No enemies left");
+		} else {
+			m_target=closest;
+			Debug.Log("Closest Enemy"+ closest);
+		}
+	}
+
 	void moveToTarget ()
 	{
 		rigidbody2D.AddForce(-rigidbody2D.velocity.normalized * m_dragspeed);
@@ -107,13 +126,19 @@ public class seaBoardMove : MonoBehaviour {
 	// Update is called once per frame
 	//65,67,69,71
 	void Update () {
-		EnemyAI closestEnemy = m_target.GetComponent<EnemyAI> ();
-		if (!closestEnemy.isPlayingSound) {
-			StartCoroutine ( closestEnemy.playSound());
+		if (gameObject != null){
+			if (m_target==null){
+				findNewTarget();
+			}
+			EnemyAI closestEnemy = m_target.GetComponent<EnemyAI> ();
+			if (!closestEnemy.isPlayingSound) {
+				StartCoroutine ( closestEnemy.playSound());
+			}
+			moveToTarget ();
+			getInput ();
 		}
-		moveToTarget ();
-		getInput ();
 	}
+
 	void testingMove(){
 		float upKey = MidiJack.GetKey (65);
 		float downKey= MidiJack.GetKey (67);
