@@ -10,6 +10,7 @@ public class seaBoardMove : MonoBehaviour {
 	public GameObject m_target;
 
 	private Dictionary<string,int> midiNum=new Dictionary<string,int>();
+	private Dictionary<int,string> midiStr=new Dictionary<int, string>();
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +31,19 @@ public class seaBoardMove : MonoBehaviour {
 		midiNum.Add ("F#", 78);
 		midiNum.Add ("Gb", 78);
 		midiNum.Add ("G", 79);
+
+		midiStr.Add ( 68, "Ab");
+		midiStr.Add ( 69, "A");
+		midiStr.Add ( 70, "Bb");
+		midiStr.Add ( 71, "B");
+		midiStr.Add ( 72, "C");
+		midiStr.Add ( 73, "Db");
+		midiStr.Add ( 74, "D");
+		midiStr.Add ( 75, "Eb");
+		midiStr.Add ( 76, "E");
+		midiStr.Add ( 77, "F");
+		midiStr.Add ( 78, "Gb");
+		midiStr.Add ( 79, "G");
 	}
 
 	//board 58-84
@@ -54,19 +68,38 @@ public class seaBoardMove : MonoBehaviour {
 			}
 
 //		string[] combinedNotes= noteName.Split (p);
-		Debug.Log (notes);
+//		Debug.Log (notes);
 
 		return midiNum[noteName];
+	}
+
+	private ArrayList getInput(){
+		ArrayList notes_pressed=new ArrayList();
+		for (int i=68; i<88; i+=1) {
+			if (MidiJack.GetKey(i)>.1){
+				//Debug.Log("key pressed");
+				notes_pressed.Add(i);
+			}
+		}
+
+			if (notes_pressed.Count > 0) {
+						foreach (int note in notes_pressed) {
+								Debug.Log (midiStr[note]);
+						}
+			}
+		return notes_pressed;
 	}
 
 	void moveToTarget ()
 	{
 		rigidbody2D.AddForce(-rigidbody2D.velocity.normalized * m_dragspeed);
-		float upKey = MidiJack.GetKey (calcKey ());
-		if (upKey>.1){
+
+		float move = MidiJack.GetKey (calcKey ());
+		//Debug.Log (move);
+		if (move>.1){
 			Vector2 dif = m_target.transform.position - transform.position;
 			if ((dif).magnitude > 1) {
-				rigidbody2D.AddForce (dif.normalized * m_speed * upKey *10);
+				rigidbody2D.AddForce (dif.normalized * m_speed * move *10);
 			}
 		}
 	}
@@ -75,6 +108,7 @@ public class seaBoardMove : MonoBehaviour {
 	//65,67,69,71
 	void Update () {
 		moveToTarget ();
+		getInput ();
 	}
 	void testingMove(){
 		float upKey = MidiJack.GetKey (65);
