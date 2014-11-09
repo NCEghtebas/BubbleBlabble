@@ -18,7 +18,9 @@ public class EnemyAI : MonoBehaviour
 	IEnumerator playSound ()
 	{	
 		anim.SetBool("isPlaying",true);
+		isPlayingSound = true;
 		yield return new WaitForSeconds (5f);
+		isPlayingSound = false;
 		audio.Play ();
 		Debug.Log ("Play Sound");
 		anim.SetBool ("isPlaying", false);
