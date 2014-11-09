@@ -7,18 +7,39 @@ public class seaBoardMove : MonoBehaviour {
 	public float m_dragspeed =5;
 	public GameObject m_target;
 
+	//private Dictionary<string,int> midiNum=new Dictionary<string,int>
+
+
 	// Use this for initialization
 	void Start () {
-	
+		
+	}
+	//board 58-84
+	//us 68-87
+	private int calcKey(){
+		char[] u =  {'_'};
+		char[] x =  {'x'};
+		string audioName= m_target.GetComponent<AudioSource>().clip.name;
+		//Debug.Log (audioName);
+		string step1 = audioName.Split (u) [1];
+		//Debug.Log(step1);
+		string noteName = (step1.Split (x) [0]);
+		if (noteName == "Ab") {
+						return 80;
+				} else {
+						return 0;
+				}
 	}
 
 	void moveToTarget ()
 	{
-		float upKey = MidiJack.GetKey (65);
 		rigidbody2D.AddForce(-rigidbody2D.velocity.normalized * m_dragspeed);
-		Vector2 dif = m_target.transform.position - transform.position;
-		if ((dif).magnitude > 1) {
-			rigidbody2D.AddForce (dif.normalized * m_speed * upKey *10);
+		float upKey = MidiJack.GetKey (calcKey ());
+		if (upKey>.1){
+			Vector2 dif = m_target.transform.position - transform.position;
+			if ((dif).magnitude > 1) {
+				rigidbody2D.AddForce (dif.normalized * m_speed * upKey *10);
+			}
 		}
 	}
 
