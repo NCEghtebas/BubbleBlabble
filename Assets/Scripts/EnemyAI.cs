@@ -10,34 +10,26 @@ public class EnemyAI : MonoBehaviour
 	public Sprite highlighted;
 	public Sprite normal;
 	private SpriteRenderer Srenderer;
+	Animator anim;
 
 	public float m_growFactor = 1.5f;
 
 	IEnumerator playSound ()
 	{	
-		isPlayingSound = true;
-		StartCoroutine (pulse());
+		anim.SetBool("isPlaying",true);
 		yield return new WaitForSeconds (3f);
 		audio.Play ();
-		isPlayingSound = false;
 		Debug.Log ("Play Sound");
+		anim.SetBool ("isPlaying", false);
 	}
 
-	IEnumerator pulse()
+	IEnumerator eat()
 	{
-		if (Srenderer.sprite == normal) {
-						Srenderer.sprite = highlighted;
-				}
-		else {
-						Srenderer.sprite = normal;
-				}
-		yield return new WaitForSeconds (.5f);
-		//Debug.Log ("Change sprite");
-		if (isPlayingSound) {
-						StartCoroutine (pulse());
-				}
-
+		anim.SetBool ("isEating", true);
+		yield return new WaitForSeconds (3f);
+		anim.SetBool ("isEating", false);
 	}
+
 
 	void OnCollisionEnter2D(Collision2D hit){
 		EnemyAI prey = hit.gameObject.GetComponent<EnemyAI> ();
@@ -45,6 +37,8 @@ public class EnemyAI : MonoBehaviour
 		
 		if (prey.GetComponent<ObjectSize>().size < enemy_size.size) {
 			Debug.Log ("Hit");
+			StartCoroutine(eat ());
+
 			Destroy (prey.m_target);
 			Destroy (hit.gameObject);
 			
@@ -62,6 +56,7 @@ public class EnemyAI : MonoBehaviour
 	void Start ()
 	{
 		Srenderer = GetComponent<SpriteRenderer> ();
+		anim = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -69,9 +64,6 @@ public class EnemyAI : MonoBehaviour
 	{
 		if (!isPlayingSound) {
 			StartCoroutine (playSound());
-		}
-		if (Srenderer.sprite == highlighted) {
-			Srenderer.sprite = normal;
 		}
 		moveToTarget ();
 	}
