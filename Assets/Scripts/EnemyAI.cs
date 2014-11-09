@@ -9,15 +9,16 @@ public class EnemyAI : MonoBehaviour
 	public float m_speed = 5;
 	public Sprite highlighted;
 	public Sprite normal;
-	private SpriteRenderer Srenderer;
 	Animator anim;
+
+	private float angle;
 
 	public float m_growFactor = 1.5f;
 
 	IEnumerator playSound ()
 	{	
 		anim.SetBool("isPlaying",true);
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (5f);
 		audio.Play ();
 		Debug.Log ("Play Sound");
 		anim.SetBool ("isPlaying", false);
@@ -25,17 +26,20 @@ public class EnemyAI : MonoBehaviour
 
 	IEnumerator eat()
 	{
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 		anim.SetBool ("isEating", true);
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (7f);
 		anim.SetBool ("isEating", false);
+		Debug.Log ("Finished eating");
 	}
 
 
 	void OnCollisionEnter2D(Collision2D hit){
 		EnemyAI prey = hit.gameObject.GetComponent<EnemyAI> ();
 		ObjectSize enemy_size = gameObject.GetComponent<ObjectSize> ();
+		angle = Vector3.Angle (prey.transform.position, gameObject.transform.position);
 		
-		if (prey.GetComponent<ObjectSize>().size < enemy_size.size) {
+		if (prey.GetComponent<ObjectSize>().size <= enemy_size.size) {
 			Debug.Log ("Hit");
 			StartCoroutine(eat ());
 
@@ -55,7 +59,6 @@ public class EnemyAI : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		Srenderer = GetComponent<SpriteRenderer> ();
 		anim = GetComponent<Animator> ();
 	}
 	

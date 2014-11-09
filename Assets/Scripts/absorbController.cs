@@ -15,6 +15,7 @@ public class absorbController : MonoBehaviour {
 		ObjectSize player_size = this.GetComponent<ObjectSize> ();
 
 		if (prey.GetComponent<ObjectSize>().size < player_size.size) {
+			rigidbody.AddTorque(Vector3.up * 10);
 						Debug.Log ("Hit");
 						Destroy (prey.m_target);
 						Destroy (hit.gameObject);
@@ -31,7 +32,7 @@ public class absorbController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (this.GetComponent<ObjectSize> ().size < .5) {
+		if (gameObject.GetComponent<ObjectSize> ().size < .5) {
 			Destroy (gameObject);
 				}
 
