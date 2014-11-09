@@ -32,7 +32,7 @@ public class EnemyAI : MonoBehaviour
 						Srenderer.sprite = normal;
 				}
 		yield return new WaitForSeconds (.5f);
-		Debug.Log ("Change sprite");
+		//Debug.Log ("Change sprite");
 		if (isPlayingSound) {
 						StartCoroutine (pulse());
 				}
