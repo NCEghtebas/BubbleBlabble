@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyAI : MonoBehaviour
 {
 
-	private bool isPlayingSound = false;
+	public bool isPlayingSound = false;
 	public GameObject m_target;
 	public float m_speed = 5;
 	public Sprite highlighted;
@@ -15,14 +15,14 @@ public class EnemyAI : MonoBehaviour
 
 	public float m_growFactor = 1.5f;
 
-	IEnumerator playSound ()
+	public IEnumerator playSound ()
 	{	
 		anim.SetBool("isPlaying",true);
 		isPlayingSound = true;
 		yield return new WaitForSeconds (5f);
 		isPlayingSound = false;
 		audio.Play ();
-		Debug.Log ("Play Sound");
+		//Debug.Log ("Play Sound");
 		anim.SetBool ("isPlaying", false);
 	}
 
@@ -67,9 +67,6 @@ public class EnemyAI : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!isPlayingSound) {
-			StartCoroutine (playSound());
-		}
 		moveToTarget ();
 	}
 	void moveToTarget ()

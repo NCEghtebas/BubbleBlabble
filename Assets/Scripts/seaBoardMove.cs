@@ -82,11 +82,11 @@ public class seaBoardMove : MonoBehaviour {
 			}
 		}
 
-			if (notes_pressed.Count > 0) {
-						foreach (int note in notes_pressed) {
-								Debug.Log (midiStr[note]);
-						}
-			}
+//			if (notes_pressed.Count > 0) {
+//						foreach (int note in notes_pressed) {
+//								Debug.Log (midiStr[note]);
+//						}
+//			}
 		return notes_pressed;
 	}
 
@@ -107,6 +107,10 @@ public class seaBoardMove : MonoBehaviour {
 	// Update is called once per frame
 	//65,67,69,71
 	void Update () {
+		EnemyAI closestEnemy = m_target.GetComponent<EnemyAI> ();
+		if (!closestEnemy.isPlayingSound) {
+			StartCoroutine ( closestEnemy.playSound());
+		}
 		moveToTarget ();
 		getInput ();
 	}

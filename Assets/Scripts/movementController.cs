@@ -49,6 +49,10 @@ public class movementController : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
+		EnemyAI closestEnemy = m_target.GetComponent<EnemyAI> ();
+			if (!closestEnemy.isPlayingSound) {
+				StartCoroutine ( closestEnemy.playSound());
+			}
 			moveToTarget ();
 		}
 
