@@ -1,6 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\makeMenu.cs">
+    <Files>
+      <File FileName="Assets\LoadMenu.cs" Line="8" Column="27" />
+      <File FileName="Assets\makeMenu.cs" Line="17" Column="5" />
+      <File FileName="Assets\ChooseInput.cs" Line="16" Column="50" />
+      <File FileName="Assets\Scripts\movementController.cs" Line="52" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

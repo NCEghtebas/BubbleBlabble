@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\CC\KnobIndicator.cs" />
      <Compile Include="Assets\CC\KnobIndicatorGroup.cs" />
+     <Compile Include="Assets\ChooseInput.cs" />
+     <Compile Include="Assets\LoadMenu.cs" />
      <Compile Include="Assets\MidiJack.cs" />
      <Compile Include="Assets\Note\NoteIndicator.cs" />
      <Compile Include="Assets\Note\NoteIndicatorGroup.cs" />
@@ -59,6 +61,7 @@
      <Compile Include="Assets\Scripts\movementController.cs" />
      <Compile Include="Assets\Scripts\seaBoardMove.cs" />
      <Compile Include="Assets\accessKeys.cs" />
+     <Compile Include="Assets\makeMenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
